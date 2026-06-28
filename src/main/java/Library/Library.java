@@ -25,7 +25,6 @@ public class Library {
         if (!books.contains(title)){
             books.add(position, title);
         }
-
     }
 
     public String getBook (int position){
@@ -43,7 +42,5 @@ public class Library {
         Collections.sort(sortedBooks);
         return sortedBooks;
     }
-
-
 
 }

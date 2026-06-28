@@ -22,6 +22,14 @@ public class LibraryTest {
     }
 
     @Test
+    public void noDuplicatedBooks(){
+        Library testLibrary = new Library();
+        testLibrary.addBook("La Tumba");
+        testLibrary.addBook("La Tumba");
+        assertEquals(1, testLibrary.getBooks().size());
+    }
+
+    @Test
     public void booksKeepInsertionOrder(){
         Library testLibrary = new Library();
         testLibrary.addBook("La Tumba");
@@ -38,7 +46,7 @@ public class LibraryTest {
         testLibrary.addBook("La Tumba");
         testLibrary.addBook("La Casa de los Espíritus");
         testLibrary.addBook("Se tiene que morir mucha gente");
-        assertEquals("La casa de los espíritus", testLibrary.getBook(1));
+        assertEquals("La Casa de los Espíritus", testLibrary.getBook(1));
     }
 
     @Test
