@@ -12,7 +12,6 @@ public class Level2Test {
     public void integerEqual() {
         Integer a = 42;
         Integer b = 42;
-        Integer c = 99;
         assertThat(a).isEqualTo(b);
     }
 
