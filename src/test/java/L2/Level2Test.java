@@ -71,7 +71,6 @@ public class Level2Test {
     @Test
     public void invalidIndex() {
         ArrayException exceptionInt = new ArrayException ();
-//        ExceptionInt exceptionInt = new ExceptionInt();
         AssertionsForClassTypes.assertThatThrownBy(() -> {
                     exceptionInt.throwException(3);
                 })
