@@ -10,7 +10,7 @@ public class CalculateDni {
         this.numDni = numDni;
     }
 
-    public char calculateLetter(int numDni ){
+    public char calculateLetter(){
         int remainder = numDni%23;
         String letterDni = "TRWAGMYFPDXBNJZSQVHLCKE";
         return letterDni.charAt(remainder);

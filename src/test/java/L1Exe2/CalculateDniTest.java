@@ -1,6 +1,5 @@
 package L1Exe2;
 
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
@@ -20,30 +19,28 @@ public class CalculateDniTest {
             "90123456, A",
             "23456789, D",
             "12344321, Z"
-
-
-
     })
     public void calculateLetterTest(int numbers, char letter) {
         CalculateDni calculateDni = new CalculateDni(numbers);
-        assertEquals(letter, calculateDni.calculateLetter(numbers));
+        assertEquals(letter, calculateDni.calculateLetter());
     }
 
-    @Test
-    public void negativeDni(){
+    @ParameterizedTest
+    @CsvSource({ "-34563", "-314", "-346253324"})
+    public void negativeDni (int number){
         try {
-            new CalculateDni(-34563);
+            new CalculateDni(number);
             fail("An exception should been thrown");
         } catch (IllegalArgumentException error){
             assertEquals("Invalid number", error.getMessage());
         }
-
     }
 
-    @Test
-    public void longestDni(){
+    @ParameterizedTest
+    @CsvSource({ "256498759", "837495764", "192837467"})
+    public void longestDni(int number){
         try {
-            new CalculateDni(256498759);
+            new CalculateDni(number);
             fail("An exception should been thrown");
         } catch (IllegalArgumentException error){
             assertEquals("Invalid number", error.getMessage());

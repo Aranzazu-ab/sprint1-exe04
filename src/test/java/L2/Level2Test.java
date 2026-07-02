@@ -1,34 +1,40 @@
 package L2;
 
+import L1Exe3.ArrayException;
+import org.assertj.core.api.AssertionsForClassTypes;
 import org.junit.jupiter.api.Test;
-
 import java.util.*;
-
 import static org.assertj.core.api.Assertions.assertThat;
+
 
 public class Level2Test {
     @Test
-    public void testIntegerEquality() {
+    public void integerEqual() {
         Integer a = 42;
         Integer b = 42;
         Integer c = 99;
-
         assertThat(a).isEqualTo(b);
-        assertThat(a).isNotEqualTo(c);
     }
 
     @Test
-    public void testObjectReference() {
-        String original = new String("hello");
-        String mismaReferencia = original;       // apunta al MISMO objeto
-        String otroObjeto = new String("hello"); // valor igual, objeto DISTINTO
-
-        assertThat(original).isSameAs(mismaReferencia);
-        assertThat(original).isNotSameAs(otroObjeto);
+    public void integerNotEqual() {
+        Integer a = 42;
+        Integer b = 99;
+        assertThat(a).isNotEqualTo(b);
     }
 
     @Test
-    public void testArraysAreIdentical() {
+    public void sameOrNotSameMemoryReference() {
+        String firstObject = new String("Test");
+        String secondObject = firstObject;
+        String thirdObject = new String("Test");
+
+        assertThat(firstObject).isSameAs(secondObject);
+        assertThat(firstObject).isNotSameAs(thirdObject);
+    }
+
+    @Test
+    public void identicalArrays() {
         int[] array1 = {1, 2, 3, 4, 5};
         int[] array2 = {1, 2, 3, 4, 5};
         assertThat(array1).containsExactly(array2);
@@ -36,11 +42,11 @@ public class Level2Test {
 
     @Test
     public void testArrayListOrder() {
-        L2.Amphibian axolot = new Amphibian("Axolot");
+        Amphibian axolot = new Amphibian("Axolot");
         Fish shark = new Fish("shark");
         Mammals elephant = new Mammals("Elephant");
         Reptiles snake = new Reptiles("Snake");
-        Reptiles notAdded = new Reptiles("Komodo");
+        Reptiles notKomodo = new Reptiles("Komodo");
 
         List<Object> list = new ArrayList<>();
         list.add(axolot);
@@ -48,31 +54,34 @@ public class Level2Test {
         list.add(elephant);
         list.add(snake);
 
-
-        assertThat(list).containsExactly();
-        assertThat(list).containsExactlyInAnyOrder();
-        assertThat(list).containsOnlyOnce();
-        assertThat(list).doesNotContain(notAdded);
+        assertThat(list).containsExactly(axolot, shark, elephant, snake);
+        assertThat(list).containsExactlyInAnyOrder(shark, snake,axolot, elephant);
+        assertThat(list).containsOnlyOnce(axolot);
+        assertThat(list).doesNotContain(notKomodo);
     }
 
     @Test
-    public void MapContainsKey() {
+    public void mapContainsKey() {
         Map<String, Integer> examGrade = new HashMap<>();
         examGrade.put("Marc", 89);
         examGrade.put("Jordi", 74);
-
         assertThat(examGrade).containsKey("Jordi");
     }
 
     @Test
-    public void testEmptyOptional() {
-        Optional<String> emptyOptional = Optional.empty();
-
-        assertThat(emptyOptional).isEmpty();
-
-        // Bonus — un Optional con valor NO está vacío
-        Optional<String> presentOptional = Optional.of("hello");
-        assertThat(presentOptional).isPresent();
+    public void invalidIndex() {
+        ArrayException exceptionInt = new ArrayException ();
+//        ExceptionInt exceptionInt = new ExceptionInt();
+        AssertionsForClassTypes.assertThatThrownBy(() -> {
+                    exceptionInt.throwException(3);
+                })
+                .isInstanceOf(ArrayIndexOutOfBoundsException.class)
+                .hasMessageContaining("Invalid index");
     }
 
+    @Test
+    public void emptyOptional() {
+        Optional<String> empty = Optional.empty();
+        assertThat(empty).isEmpty();
+    }
 }
