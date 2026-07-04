@@ -17,17 +17,15 @@ public class Library {
 
     public void addBook (String title){
        validateTitle(title);
-        if (!books.contains(title)){
-            books.add(title);
-        }
+       validateContainsTitle(title);
+       books.add(title);
     }
 
     public void addBook (int position, String title){
         validateTitle(title);
         validatePosition(position);
-        if (!books.contains(title)){
-            books.add(position, title);
-        }
+        validateContainsTitle(title);
+        books.add(position, title);
     }
 
     public String getBook (int position){
@@ -60,6 +58,12 @@ public class Library {
     private void validatePosition(int position){
         if (position < 0 || position > books.size()) {
             throw new IllegalArgumentException("Position must be within the list.");
+        }
+    }
+
+    private void validateContainsTitle (String title){
+        if (books.contains(title)){
+            throw new IllegalArgumentException("This title is already in the list");
         }
     }
 

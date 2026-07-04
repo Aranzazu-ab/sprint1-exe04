@@ -2,8 +2,7 @@ package L1Exe2;
 
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class CalculateDniTest {
     @ParameterizedTest
@@ -20,29 +19,26 @@ public class CalculateDniTest {
             "12344321, Z"
     })
     public void calculateLetterTest(int numbers, char letter) {
-        CalculateDni calculateDni = new CalculateDni(numbers);
-        assertEquals(letter, calculateDni.calculateLetter());
+        assertEquals(letter, CalculateDni.calculateLetter(numbers));
     }
 
     @ParameterizedTest
-    @CsvSource({ "-34563", "-314", "-346253324"})
-    public void negativeDni (int number){
-        try {
-            new CalculateDni(number);
-            fail("An exception should been thrown");
-        } catch (IllegalArgumentException error){
-            assertEquals("Invalid number", error.getMessage());
-        }
+    @CsvSource({ "-34563", "-314", "-346253324" })
+    void negativeDni(int number) {
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class,
+                () -> CalculateDni.calculateLetter(number)
+        );
+        assertEquals("Invalid number", exception.getMessage());
     }
 
     @ParameterizedTest
-    @CsvSource({ "256498759", "837495764", "192837467"})
-    public void longestDni(int number){
-        try {
-            new CalculateDni(number);
-            fail("An exception should been thrown");
-        } catch (IllegalArgumentException error){
-            assertEquals("Invalid number", error.getMessage());
-        }
+    @CsvSource({"256498759","837495764", "192837467"})
+    public void longestDni (int number){
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class, () ->
+                        CalculateDni.calculateLetter(number)
+        );
+        assertEquals("Invalid number", exception.getMessage());
     }
 }
